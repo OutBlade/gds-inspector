@@ -17,19 +17,35 @@ The installer is self-contained. No Python installation required.
 
 ---
 
+## Screenshots
+
+**Layer Summary** — all layers with polygon counts, covered area, inline density bars, and color-coded minimum CD values.
+
+![Layer Summary](docs/layers.png)
+
+**Critical Dimension Analysis** — minimum and maximum feature sizes per layer, sorted by min CD. Values below 100 nm are flagged in red for immediate visibility before tape-out.
+
+![Critical Dimension Analysis](docs/features.png)
+
+**Layout Preview** — 2D canvas rendering of the flattened top cell with per-layer colors and a calibrated scale bar. Supports up to 3,000 polygons without performance issues.
+
+![Layout Preview](docs/preview.png)
+
+---
+
 ## Features
 
-**Layer Inspector** — View all layers with polygon counts, covered area, and color-coded indicators.
+**Layer Inspector** — view all layers with polygon counts, covered area, and color-coded indicators.
 
-**Pattern Density** — Per-layer density relative to the top-cell bounding box. Critical for EBL proximity effect correction on the EBPG5200Z and similar tools.
+**Pattern Density** — per-layer density relative to the top-cell bounding box. Critical for EBL proximity effect correction on the EBPG5200Z and similar tools.
 
-**Critical Dimension Analysis** — Minimum and maximum feature sizes per layer. Flags structures below 100 nm with color-coded severity for quick review before tape-out.
+**Critical Dimension Analysis** — minimum and maximum feature sizes per layer. Flags structures below 100 nm with color-coded severity for quick review before tape-out.
 
-**Design Rule Check (DRC)** — Automated check for minimum width and minimum area violations with configurable thresholds. Shows violation location and cell name.
+**Design Rule Check (DRC)** — automated check for minimum width and minimum area violations with configurable thresholds. Shows violation location and cell name.
 
-**Layout Preview** — 2D canvas rendering of the flattened top cell with correct layer colors and a calibrated scale bar. Supports files with thousands of polygons.
+**Layout Preview** — 2D canvas rendering of the flattened top cell with correct layer colors and a calibrated scale bar.
 
-**Auto-Update** — Detects and installs new versions silently in the background.
+**Auto-Update** — detects and installs new versions silently in the background.
 
 ---
 
