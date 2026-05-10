@@ -1,0 +1,51 @@
+{
+  "name": "gds-inspector",
+  "productName": "GDS Inspector",
+  "version": "1.0.0",
+  "description": "Professional GDSII layout analysis tool for nanofabrication and EBL workflows",
+  "main": "src/main.js",
+  "author": "OutBlade",
+  "license": "MIT",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder --win --publish never",
+    "release": "electron-builder --win --publish always"
+  },
+  "build": {
+    "appId": "com.outblade.gds-inspector",
+    "productName": "GDS Inspector",
+    "directories": {
+      "output": "dist"
+    },
+    "files": ["src/**/*"],
+    "extraResources": [
+      {
+        "from": "resources/gds_backend",
+        "to": "gds_backend",
+        "filter": ["**/*"]
+      }
+    ],
+    "win": {
+      "icon": "build/icon.ico",
+      "target": "nsis"
+    },
+    "nsis": {
+      "oneClick": true,
+      "perMachine": false,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true
+    },
+    "publish": {
+      "provider": "github",
+      "owner": "OutBlade",
+      "repo": "gds-inspector"
+    }
+  },
+  "dependencies": {
+    "electron-updater": "^6.1.7"
+  },
+  "devDependencies": {
+    "electron": "^28.3.3",
+    "electron-builder": "^24.13.3"
+  }
+}

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'"
+    />
+    <title>GDS Inspector</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="app-header">
+      <div class="header-logo">
+        <span class="logo-icon">◈</span>
+        <span class="logo-text">GDS Inspector</span>
+      </div>
+      <div class="header-actions">
+        <button id="open-btn" class="btn-primary">Open File</button>
+        <span id="version-badge" class="version-badge">v1.0.0</span>
+      </div>
+    </header>
+
+    <div class="app-body">
+      <nav class="sidebar">
+        <button class="nav-btn active" data-panel="file">
+          <span class="nav-icon">◉</span>
+          <span>File Info</span>
+        </button>
+        <button class="nav-btn" data-panel="layers" disabled>
+          <span class="nav-icon">▤</span>
+          <span>Layers</span>
+        </button>
+        <button class="nav-btn" data-panel="density" disabled>
+          <span class="nav-icon">▦</span>
+          <span>Density</span>
+        </button>
+        <button class="nav-btn" data-panel="features" disabled>
+          <span class="nav-icon">⊞</span>
+          <span>Features</span>
+        </button>
+        <button class="nav-btn" data-panel="drc" disabled>
+          <span class="nav-icon">⚠</span>
+          <span>DRC</span>
+        </button>
+        <button class="nav-btn" data-panel="preview" disabled>
+          <span class="nav-icon">⬡</span>
+          <span>Preview</span>
+        </button>
+      </nav>
+
+      <main class="main-content">
+        <div id="drop-zone" class="drop-zone">
+          <div class="drop-zone-inner">
+            <div class="drop-icon">◈</div>
+            <h2>Drop a GDSII File</h2>
+            <p>Drag and drop a .gds file here, or click Open File above</p>
+            <p class="drop-hint">Supports GDSII format (.gds, .gds2)</p>
+          </div>
+        </div>
+        <div id="panel-content" class="panel-content"></div>
+      </main>
+    </div>
+
+    <div class="status-bar" id="status-bar">
+      Ready — drop a GDS file or click Open File to begin
+    </div>
+
+    <div id="update-toast" class="update-toast hidden">
+      <div class="update-toast-body">
+        <span>Update <strong id="update-version"></strong> ready to install</span>
+        <div class="update-actions">
+          <button id="install-update-btn" class="btn-primary btn-sm">Install Now</button>
+          <button id="dismiss-update-btn" class="btn-ghost btn-sm">Later</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="renderer.js"></script>
+  </body>
+</html>

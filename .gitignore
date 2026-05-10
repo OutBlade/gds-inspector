@@ -1,0 +1,39 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyd
+*.pyo
+.env
+venv/
+.venv/
+dist/
+build/
+*.egg-info/
+
+# PyInstaller
+*.spec.bak
+
+# Node / Electron
+node_modules/
+desktop/node_modules/
+desktop/dist/
+
+# Electron builder output
+desktop/dist/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.suo
+
+# Test artifacts
+.pytest_cache/
+htmlcov/
+.coverage
+
+# Generated icon (created by CI)
+desktop/build/icon.ico

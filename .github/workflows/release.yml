@@ -1,0 +1,50 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Python dependencies
+        run: pip install -r requirements.txt pyinstaller
+
+      - name: Generate icon
+        run: python generate_icon.py
+
+      - name: Build Python backend
+        run: pyinstaller --onedir --name gds_backend --distpath dist backend_main.py
+
+      - name: Copy backend to Electron resources
+        run: |
+          New-Item -ItemType Directory -Force -Path desktop/resources/gds_backend
+          Copy-Item -Recurse dist/gds_backend/* desktop/resources/gds_backend/
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install Node dependencies
+        run: npm install
+        working-directory: desktop
+
+      - name: Build and publish Electron app
+        run: npm run release
+        working-directory: desktop
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
