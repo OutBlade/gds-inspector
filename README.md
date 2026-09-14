@@ -1,5 +1,9 @@
 # GDS Inspector
 
+<!-- project-navigation -->
+[Getting started](#build-from-source) · [Features](#features)
+<!-- /project-navigation -->
+
 [![Release](https://img.shields.io/github/v/release/OutBlade/gds-inspector?style=flat-square&color=5b6cf5)](https://github.com/OutBlade/gds-inspector/releases/latest)
 [![CI](https://img.shields.io/github/actions/workflow/status/OutBlade/gds-inspector/ci.yml?style=flat-square&label=CI)](https://github.com/OutBlade/gds-inspector/actions)
 [![Platform](https://img.shields.io/badge/platform-Windows-blue?style=flat-square)](https://github.com/OutBlade/gds-inspector/releases/latest)
