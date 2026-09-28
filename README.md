@@ -1,7 +1,7 @@
 # GDS Inspector
 
 <!-- project-navigation -->
-[Getting started](#build-from-source) · [Features](#features)
+[Web app](#web-app) · [Getting started](#build-from-source) · [Features](#features)
 <!-- /project-navigation -->
 
 [![Release](https://img.shields.io/github/v/release/OutBlade/gds-inspector?style=flat-square&color=5b6cf5)](https://github.com/OutBlade/gds-inspector/releases/latest)
@@ -10,6 +10,38 @@
 [![License](https://img.shields.io/badge/license-MIT-green?style=flat-square)](LICENSE)
 
 Professional GDSII layout analysis tool for nanofabrication engineers. Built for daily EBL workflows: inspect layer structure, calculate pattern density, analyze critical dimensions, and run design rule checks — all in a fast, offline desktop app.
+
+---
+
+## Web app
+
+**[Open GDS Inspector in the browser](https://outblade.github.io/gds-inspector/)**
+
+The same analysis, plus a full layout viewer, with nothing to install. Files are read inside the browser tab and never uploaded.
+
+![2D layout view with shape inspector](docs/web-2d.png)
+
+![3D metal stack view](docs/web-3d.png)
+
+- **2D view**: hatched layers in KLayout style, full hierarchy with instancing, level of detail for millions of placements, labels, grid and scale bar.
+- **3D view**: extruded metal stack with adjustable height, exploded layers and a section cut.
+- **Process aware**: recognises SKY130, GF180MCU and IHP SG13G2 layer maps; imports KLayout `.lyp` files for any other process.
+- **Inspect**: click a shape for its size, area and hierarchy path; click again to step through stacked shapes. Cell tree with highlight, hide and open as top; search over labels and cell names; a gallery of all top cells for standard cell libraries.
+- **Measure**: snapping ruler and cross-section profiles along any line.
+- **Analyse**: per-layer placed area, true coverage density maps, minimum widths, rule checks with markers, EBL beam-on time.
+- **Share**: `?url=` opens a remote GDS file, the view position is kept in the address. Export PNG, SVG, the JSON report (same format as the desktop app) and a layer CSV.
+
+Keyboard: `1` hides fill, decap and tap cells, `2` hides top cell geometry, `3` highlights the selected cell, `4` zooms to the selection (as in the Tiny Tapeout viewer), `T` switches 2D and 3D, `R` ruler, `X` cross-section, `?` lists the rest.
+
+Run it locally:
+
+```bash
+cd web
+npm install
+npm run dev
+```
+
+`npm test` runs the unit tests. The CI parity job writes a fixture with gdstk and checks that the browser port reports exactly what `gds_inspector/inspector.py` reports.
 
 ---
 
