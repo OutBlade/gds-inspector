@@ -3,7 +3,8 @@ name: Release
 on:
   push:
     tags:
-      - "v*"
+      # Desktop releases only; vscode-v* tags belong to release-extension.yml.
+      - "v[0-9]*"
 
 permissions:
   contents: write

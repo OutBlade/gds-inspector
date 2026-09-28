@@ -11,7 +11,13 @@ async function main() {
     await runTests({
       extensionDevelopmentPath,
       extensionTestsPath,
-      launchArgs: [workspace, "--disable-extensions", "--disable-workspace-trust"],
+      // CI runners have no GPU; software WebGL keeps the viewer testable there.
+      launchArgs: [
+        workspace,
+        "--disable-extensions",
+        "--disable-workspace-trust",
+        ...(process.platform === "linux" ? ["--ignore-gpu-blocklist", "--use-angle=swiftshader", "--enable-unsafe-swiftshader"] : []),
+      ],
       extensionTestsEnv: { GDS_TEST_DIR: workspace, GDS_TEST_SAVE_DIR: fs.mkdtempSync(path.join(os.tmpdir(), "gds-inspector-out-")) },
     });
   } catch (e) {

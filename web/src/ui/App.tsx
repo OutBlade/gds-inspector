@@ -16,7 +16,7 @@ export function App() {
   const host = useRef<HTMLDivElement>(null);
   useEffect(() => {
     app.mount(host.current!);
-    attachInteraction(host.current!);
+    if (app.hasGl) attachInteraction(host.current!);
   }, []);
 
   const loaded = S.loaded.value;
