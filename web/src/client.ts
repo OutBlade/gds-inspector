@@ -1,4 +1,6 @@
 import type { Request, ResponseMap, WorkerMessage } from "./worker/protocol";
+// Inlined so it also starts inside editor webviews, which cannot load workers from their own URLs.
+import GdsWorker from "./worker/gds.worker.ts?worker&inline";
 
 type Pending = { resolve: (v: unknown) => void; reject: (e: Error) => void };
 
@@ -10,7 +12,12 @@ export class LayoutClient {
   onProgress: ((stage: string, fraction: number) => void) | null = null;
 
   constructor() {
-    this.worker = new Worker(new URL("./worker/gds.worker.ts", import.meta.url), { type: "module" });
+    this.worker = new GdsWorker();
+    this.worker.onerror = (e) => {
+      const message = e.message || "The layout worker stopped unexpectedly.";
+      for (const p of this.pending.values()) p.reject(new Error(message));
+      this.pending.clear();
+    };
     this.worker.onmessage = (ev: MessageEvent<WorkerMessage>) => {
       const m = ev.data;
       if (m.kind === "progress") {

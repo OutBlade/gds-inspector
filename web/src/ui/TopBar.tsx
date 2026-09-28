@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "preact/hooks";
 import { app } from "../controller";
 import * as S from "../state";
+import { embedded } from "../host";
 import { exportLayerCsv, exportPng, exportReport, exportSvg } from "../export";
 import {
   IconCube,
@@ -62,10 +63,12 @@ export function TopBar() {
           (e.currentTarget as HTMLInputElement).value = "";
         }}
       />
-      <button class="btn primary" onClick={() => input.current?.click()} title="Open a GDSII file (Ctrl+O)">
-        <IconOpen />
-        <span class="hide-sm">Open</span>
-      </button>
+      {!embedded && (
+        <button class="btn primary" onClick={() => input.current?.click()} title="Open a GDSII file (Ctrl+O)">
+          <IconOpen />
+          <span class="hide-sm">Open</span>
+        </button>
+      )}
 
       {loaded && sum && info && (
         <>
@@ -138,7 +141,7 @@ export function TopBar() {
       <div class="spacer" />
 
       {loaded && <ExportMenu onLyp={() => lypInput.current?.click()} />}
-      <button
+      {!embedded && <button
         class="icon-btn hide-xs"
         onClick={() => {
           S.theme.value = S.theme.value === "dark" ? "light" : "dark";
@@ -152,7 +155,7 @@ export function TopBar() {
         aria-label="Toggle theme"
       >
         {S.theme.value === "dark" ? <IconSun /> : <IconMoon />}
-      </button>
+      </button>}
       <button class="icon-btn hide-xs" onClick={() => (S.helpOpen.value = true)} title="Keyboard shortcuts (?)" aria-label="Help">
         <IconHelp />
       </button>
