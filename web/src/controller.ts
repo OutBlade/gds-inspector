@@ -23,6 +23,11 @@ interface Keep {
   top: string | number | null;
 }
 
+const hostBridge = host;
+
+const NO_WEBGL =
+  "The layout view needs WebGL 2, which is turned off here. Enable hardware acceleration in the browser or editor settings, or update the graphics driver.";
+
 export class Controller {
   readonly client = new LayoutClient();
   renderer!: LayoutRenderer;
@@ -40,9 +45,20 @@ export class Controller {
     };
   }
 
+  /** False when WebGL 2 is unavailable; the app then shows why instead of a blank view. */
+  hasGl = true;
+
   mount(host: HTMLElement) {
     this.host = host;
-    this.renderer = new LayoutRenderer(host);
+    try {
+      this.renderer = new LayoutRenderer(host);
+    } catch {
+      this.hasGl = false;
+      S.error.value = NO_WEBGL;
+      // The parameter shadows the host bridge module here.
+      hostBridge.post({ type: "error", message: NO_WEBGL });
+      return;
+    }
     this.overlay = document.createElement("canvas");
     this.overlay.className = "overlay";
     host.appendChild(this.overlay);
@@ -257,6 +273,12 @@ export class Controller {
   }
 
   async openTop(top: number, first = false) {
+    if (!this.hasGl) {
+      S.busy.value = null;
+      S.error.value = NO_WEBGL;
+      host.post({ type: "error", message: NO_WEBGL });
+      return;
+    }
     S.busy.value = { stage: "Expanding hierarchy", fraction: 0 };
     try {
       const res = await this.client.call({ type: "scene", top });
@@ -292,6 +314,7 @@ export class Controller {
       if (!first && S.report.value) this.runReport();
     } catch (e) {
       S.error.value = (e as Error).message;
+      host.post({ type: "error", message: (e as Error).message });
     } finally {
       S.busy.value = null;
     }
