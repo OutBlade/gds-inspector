@@ -1,7 +1,7 @@
 # GDS Inspector
 
 <!-- project-navigation -->
-[Web app](#web-app) · [Getting started](#build-from-source) · [Features](#features)
+[Web app](#web-app) · [IDE extension](#ide-extension) · [Getting started](#build-from-source) · [Features](#features)
 <!-- /project-navigation -->
 
 [![Release](https://img.shields.io/github/v/release/OutBlade/gds-inspector?style=flat-square&color=5b6cf5)](https://github.com/OutBlade/gds-inspector/releases/latest)
@@ -42,6 +42,30 @@ npm run dev
 ```
 
 `npm test` runs the unit tests. The CI parity job writes a fixture with gdstk and checks that the browser port reports exactly what `gds_inspector/inspector.py` reports.
+
+---
+
+## IDE extension
+
+GDS Inspector also runs inside VS Code, Cursor, Windsurf, VSCodium and other editors built on VS Code. Click a `.gds` file and it opens in the layout view instead of a binary text warning.
+
+**Install**: download `gds-inspector-*.vsix` from the [latest extension release](https://github.com/OutBlade/gds-inspector/releases?q=vscode), then in the editor open the Extensions view, the `...` menu, **Install from VSIX**, and pick the file. From a terminal:
+
+```bash
+code --install-extension gds-inspector-0.1.0.vsix
+```
+
+(`cursor`, `windsurf` and `codium` take the same flag.)
+
+- Opens `.gds`, `.gds2`, `.gdsii`, `.gdsx` and `.gds.gz` files, also in remote, WSL and container workspaces.
+- Follows the editor's light or dark theme.
+- Reloads in place when the file changes on disk, so rerunning a layout flow updates the open view.
+- Applies a KLayout `.lyp` that sits next to the layout, or the one set in `gdsInspector.layerProperties`.
+- Command palette: **GDS Inspector: Open Layout** and the four exports (PNG, SVG, JSON report, layer CSV).
+
+Develop: `cd vscode && npm install && npm test` builds the web app into the extension and runs the integration tests in a downloaded VS Code.
+
+Store publishing is automated: pushing a tag `vscode-v<version>` builds, tests and attaches the `.vsix` to a GitHub release, and also publishes to the VS Code Marketplace and to Open VSX (used by Cursor, Windsurf and VSCodium) once the repository secrets `VSCE_PAT` and `OVSX_PAT` exist.
 
 ---
 

@@ -10,6 +10,7 @@ import { Landing } from "./Landing";
 import { SectionPanel } from "./SectionPanel";
 import { Help } from "./Help";
 import { IconClose } from "./icons";
+import { embedded } from "../host";
 
 export function App() {
   const host = useRef<HTMLDivElement>(null);
@@ -40,14 +41,14 @@ export function App() {
         const f = e.dataTransfer?.files?.[0];
         if (!f) return;
         if (/\.lyp$/i.test(f.name) && S.loaded.value) f.text().then((t) => app.applyLyp(t));
-        else app.openFile(f);
+        else if (!embedded) app.openFile(f);
       }}
     >
       <TopBar />
       {loaded && <LeftPanel />}
       <main class="stage">
         <div class="viewport" ref={host} data-tool={loaded ? (S.mode.value === "3d" ? "orbit" : tool) : "none"} />
-        {!loaded && !busy && <Landing />}
+        {!loaded && !busy && !embedded && <Landing />}
         {busy && (
           <div class="busy" role="status">
             <div class="busy-card">

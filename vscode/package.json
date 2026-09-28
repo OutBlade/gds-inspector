@@ -1,0 +1,152 @@
+{
+  "name": "gds-inspector",
+  "displayName": "GDS Inspector",
+  "description": "Open GDSII chip and nanofabrication layouts in the editor: 2D and 3D views, layer statistics, density maps, feature sizes and rule checks.",
+  "version": "0.1.0",
+  "publisher": "OutBlade",
+  "license": "MIT",
+  "icon": "icon.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/OutBlade/gds-inspector"
+  },
+  "homepage": "https://outblade.github.io/gds-inspector/",
+  "bugs": "https://github.com/OutBlade/gds-inspector/issues",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Visualization",
+    "Other"
+  ],
+  "keywords": [
+    "gds",
+    "gdsii",
+    "layout",
+    "klayout",
+    "vlsi",
+    "asic",
+    "tiny tapeout",
+    "sky130",
+    "ebl",
+    "lithography"
+  ],
+  "activationEvents": [],
+  "main": "./dist/extension.js",
+  "capabilities": {
+    "untrustedWorkspaces": {
+      "supported": true
+    },
+    "virtualWorkspaces": true
+  },
+  "contributes": {
+    "customEditors": [
+      {
+        "viewType": "gdsInspector.layout",
+        "displayName": "GDS Inspector",
+        "selector": [
+          { "filenamePattern": "*.gds" },
+          { "filenamePattern": "*.GDS" },
+          { "filenamePattern": "*.gds2" },
+          { "filenamePattern": "*.gdsii" },
+          { "filenamePattern": "*.gdsx" },
+          { "filenamePattern": "*.gds.gz" }
+        ],
+        "priority": "default"
+      }
+    ],
+    "commands": [
+      {
+        "command": "gdsInspector.open",
+        "title": "Open Layout",
+        "category": "GDS Inspector"
+      },
+      {
+        "command": "gdsInspector.openWith",
+        "title": "Open With GDS Inspector",
+        "category": "GDS Inspector"
+      },
+      {
+        "command": "gdsInspector.export.png",
+        "title": "Export View as PNG",
+        "category": "GDS Inspector"
+      },
+      {
+        "command": "gdsInspector.export.svg",
+        "title": "Export View as SVG",
+        "category": "GDS Inspector"
+      },
+      {
+        "command": "gdsInspector.export.json",
+        "title": "Export Report (JSON)",
+        "category": "GDS Inspector"
+      },
+      {
+        "command": "gdsInspector.export.csv",
+        "title": "Export Layer Table (CSV)",
+        "category": "GDS Inspector"
+      }
+    ],
+    "menus": {
+      "explorer/context": [
+        {
+          "command": "gdsInspector.openWith",
+          "when": "resourceExtname =~ /^[.](gds|gds2|gdsii|gdsx|gz)$/i",
+          "group": "navigation"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "gdsInspector.openWith",
+          "when": "false"
+        },
+        {
+          "command": "gdsInspector.export.png",
+          "when": "activeCustomEditorId == gdsInspector.layout"
+        },
+        {
+          "command": "gdsInspector.export.svg",
+          "when": "activeCustomEditorId == gdsInspector.layout"
+        },
+        {
+          "command": "gdsInspector.export.json",
+          "when": "activeCustomEditorId == gdsInspector.layout"
+        },
+        {
+          "command": "gdsInspector.export.csv",
+          "when": "activeCustomEditorId == gdsInspector.layout"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "GDS Inspector",
+      "properties": {
+        "gdsInspector.layerProperties": {
+          "type": "string",
+          "default": "",
+          "markdownDescription": "Path to a KLayout `.lyp` file with layer names and colors. Relative paths are resolved against the workspace folder. When empty, a `.lyp` next to the layout is used if there is one."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "build:web": "node scripts/build-web.mjs",
+    "build:ext": "esbuild src/extension.ts --bundle --platform=node --format=cjs --external:vscode --outfile=dist/extension.js --minify --sourcemap",
+    "build": "npm run build:web && npm run build:ext",
+    "typecheck": "tsc --noEmit",
+    "pretest": "npm run build && tsc -p tsconfig.test.json",
+    "test": "node out/test/runTest.js",
+    "package": "npm run build && vsce package --no-dependencies"
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.10",
+    "@types/node": "^22.0.0",
+    "@types/vscode": "~1.85.0",
+    "@vscode/test-electron": "^3.1.0",
+    "@vscode/vsce": "^4.0.0",
+    "esbuild": "^0.28.2",
+    "mocha": "^12.0.2",
+    "ovsx": "^1.2.0",
+    "typescript": "~5.9.3"
+  }
+}

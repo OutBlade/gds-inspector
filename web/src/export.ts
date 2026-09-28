@@ -2,8 +2,13 @@ import { app } from "./controller";
 import { drawOverlay } from "./render/overlay";
 import * as S from "./state";
 import { keyLabel } from "./gds/types";
+import { embedded, saveFile } from "./host";
 
 function download(blob: Blob, name: string) {
+  if (embedded) {
+    blob.arrayBuffer().then((b) => saveFile(name, new Uint8Array(b)));
+    return;
+  }
   const a = document.createElement("a");
   a.href = URL.createObjectURL(blob);
   a.download = name;

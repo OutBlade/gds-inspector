@@ -9,6 +9,19 @@ import type { BBox } from "./gds/geometry";
 import * as S from "./state";
 import type { LayerView } from "./state";
 import type { PickHit } from "./worker/protocol";
+import { GALLERY } from "./worker/protocol";
+import * as host from "./host";
+import type { LayerView as LV } from "./state";
+
+/** What survives reopening a file that changed on disk. */
+interface Keep {
+  view: { cx: number; cy: number; scale: number };
+  orbit: LayoutRenderer["orbit"];
+  fitted: boolean;
+  pdk: string;
+  layers: Map<number, LV>;
+  top: string | number | null;
+}
 
 export class Controller {
   readonly client = new LayoutClient();
@@ -170,7 +183,22 @@ export class Controller {
     }
   }
 
-  async loadBuffer(buf: ArrayBuffer, name: string) {
+  /** Reopens a file that changed on disk, keeping view, process, layer settings and top cell. */
+  async reload(buf: ArrayBuffer, name: string) {
+    const r = this.renderer;
+    const info = S.sceneInfo.value;
+    const keep: Keep = {
+      view: { ...r.view },
+      orbit: { ...r.orbit },
+      fitted: r.keepFit !== null,
+      pdk: S.pdkId.value,
+      layers: new Map(S.layers.value.map((l) => [l.key, l])),
+      top: info ? (info.gallery ? GALLERY : info.topName) : null,
+    };
+    await this.loadBuffer(buf, name, keep);
+  }
+
+  async loadBuffer(buf: ArrayBuffer, name: string, keep?: Keep) {
     batch(() => {
       S.error.value = null;
       S.busy.value = { stage: "Reading records", fraction: 0 };
@@ -183,21 +211,36 @@ export class Controller {
     try {
       const sum = await this.client.call({ type: "load", buffer: buf, name }, [buf]);
       this.cellHidden = new Set();
-      const pdk = detectPdk(sum.layerKeys);
+      const pdkId = keep?.pdk ?? detectPdk(sum.layerKeys).id;
       batch(() => {
         S.summary.value = sum;
-        S.pdkId.value = pdk.id;
-        S.layers.value = this.layerViews(pdk.id);
+        S.pdkId.value = pdkId;
+        S.layers.value = this.layerViews(pdkId).map((l) => {
+          const old = keep?.layers.get(l.key);
+          return old ? { ...l, name: old.name, color: old.color, pattern: old.pattern, visible: old.visible, visible3d: old.visible3d } : l;
+        });
       });
       if (sum.missingRefs.length)
         S.notice.value = `${sum.missingRefs.length} referenced cell(s) are not defined in this file: ${sum.missingRefs.slice(0, 5).join(", ")}`;
       else S.notice.value = null;
       if (!sum.cells.length) throw new Error("The library contains no cells.");
-      await this.openTop(sum.defaultTop, true);
+      let top = sum.defaultTop;
+      if (keep?.top === GALLERY) top = GALLERY;
+      else if (typeof keep?.top === "string") top = sum.cells.find((c) => c.name === keep.top)?.id ?? top;
+      await this.openTop(top, !keep);
+      if (keep && !keep.fitted) {
+        this.renderer.view = keep.view;
+        this.renderer.orbit = keep.orbit;
+        this.renderer.keepFit = null;
+        this.cameraMoved();
+      }
       this.runReport();
+      const info = S.sceneInfo.value;
+      if (info) host.post({ type: "loaded", cells: sum.cells.length, top: info.topName, placements: info.placements });
     } catch (e) {
       S.busy.value = null;
       S.error.value = (e as Error).message;
+      host.post({ type: "error", message: (e as Error).message });
     }
   }
 
@@ -598,7 +641,7 @@ export class Controller {
 
   private writeHash() {
     const v = this.renderer.view;
-    if (this.renderer.mode !== "2d") return;
+    if (this.renderer.mode !== "2d" || host.embedded) return;
     const h = `#view=${v.cx.toFixed(4)},${v.cy.toFixed(4)},${v.scale.toPrecision(6)}`;
     if (location.hash !== h) history.replaceState(null, "", h);
   }
