@@ -1,0 +1,29 @@
+{
+  "name": "gds-inspector-web",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@preact/signals": "^2.11.2",
+    "earcut": "^3.2.4",
+    "flatbush": "^4.6.2",
+    "preact": "^10.29.8",
+    "three": "^0.186.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.29.7",
+    "@preact/preset-vite": "^2.10.6",
+    "@types/node": "^24.19.0",
+    "@types/three": "^0.186.0",
+    "typescript": "~5.9.3",
+    "vite": "^8.3.1",
+    "vitest": "^5.0.2"
+  }
+}
