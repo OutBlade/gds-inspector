@@ -30,7 +30,6 @@ class LayoutEditorProvider implements vscode.CustomReadonlyEditorProvider<Layout
   async resolveCustomEditor(document: LayoutDocument, panel: vscode.WebviewPanel): Promise<void> {
     const media = vscode.Uri.joinPath(this.context.extensionUri, "media");
     panel.webview.options = { enableScripts: true, localResourceRoots: [media] };
-    panel.webview.html = await this.html(panel.webview, media);
 
     const uri = document.uri;
     const name = uri.path.split("/").pop() ?? "layout.gds";
@@ -89,6 +88,10 @@ class LayoutEditorProvider implements vscode.CustomReadonlyEditorProvider<Layout
       reported.delete(uri.toString());
       for (const d of disposables) d.dispose();
     });
+
+    // Start the viewer only after its message handler and file watcher exist.
+    // Otherwise an immediate rewrite after the first load can precede watcher setup.
+    panel.webview.html = await this.html(panel.webview, media);
   }
 
   /** The web app's index.html with resource URLs rewritten for the webview and a strict CSP. */

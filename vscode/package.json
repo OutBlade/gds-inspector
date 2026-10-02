@@ -2,7 +2,7 @@
   "name": "gds-inspector",
   "displayName": "GDS Inspector - GDSII Layout Viewer",
   "description": "View GDS/GDSII chip layouts in VS Code: 2D/3D visualization, hierarchy, KLayout layers, measurements and density analysis for ASIC and EBL workflows.",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "publisher": "OutBlade",
   "license": "MIT",
   "icon": "icon.png",

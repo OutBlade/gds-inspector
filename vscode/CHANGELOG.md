@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.1.2
+
+- Register file watchers and message handlers before starting the layout webview.
+
 ## 0.1.1
 
 - Improve extension search metadata and installation instructions.
