@@ -47,6 +47,8 @@ npm run dev
 
 ## IDE extension
 
+**[Install from the VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=OutBlade.gds-inspector)** · [Viewer guide and live demos](https://outblade.github.io/gds-inspector/guide.html)
+
 GDS Inspector also runs inside VS Code, Cursor, Windsurf, VSCodium and other editors built on VS Code. Click a `.gds` file and it opens in the layout view instead of a binary text warning.
 
 **Install**: download `gds-inspector-*.vsix` from the [latest extension release](https://github.com/OutBlade/gds-inspector/releases?q=vscode), then in the editor open the Extensions view, the `...` menu, **Install from VSIX**, and pick the file. From a terminal:

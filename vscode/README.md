@@ -10,13 +10,13 @@ Works in VS Code, Cursor, Windsurf, VSCodium, Trae and other editors built on VS
 
 ## Installation
 
-Search for **GDS Inspector** (extension ID `OutBlade.gds-inspector`) once the registry listing is available. VS Code uses the Microsoft Marketplace; Cursor uses Open VSX through its own marketplace review. Availability can differ between editors.
+Install from the [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=OutBlade.gds-inspector), or search for **GDS Inspector** (extension ID `OutBlade.gds-inspector`) in VS Code. Cursor uses Open VSX through its own marketplace review; its registry listing is pending.
 
 Install immediately from the [GitHub extension releases](https://github.com/OutBlade/gds-inspector/releases?q=vscode): download the `.vsix`, open Extensions → **…** → **Install from VSIX**, then select the file. This also works in Windsurf and VSCodium.
 
 ```sh
-code --install-extension gds-inspector-0.1.1.vsix
-# Cursor: cursor --install-extension gds-inspector-0.1.1.vsix
+code --install-extension gds-inspector-0.1.2.vsix
+# Cursor: cursor --install-extension gds-inspector-0.1.2.vsix
 ```
 
 ## Features
