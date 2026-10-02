@@ -3,13 +3,32 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <title>GDS Inspector</title>
+    <title>GDS Inspector — Free GDSII Viewer for Chip Layouts</title>
     <meta name="description" content="Open GDSII chip and nanofabrication layouts in the browser: 2D and 3D views, layer statistics, pattern density, feature sizes and rule checks. Files never leave your machine." />
+    <link rel="canonical" href="https://outblade.github.io/gds-inspector/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="GDS Inspector — Free GDSII Layout Viewer" />
+    <meta property="og:description" content="Inspect chip layouts in 2D and 3D, with local file processing, hierarchy, KLayout layers and density analysis. Browser and VS Code extension." />
+    <meta property="og:url" content="https://outblade.github.io/gds-inspector/" />
+    <meta property="og:image" content="https://outblade.github.io/gds-inspector/social-preview.png" />
+    <meta property="og:image:alt" content="GDS Inspector chip layout with layers and shape inspection" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="GDS Inspector — Free GDSII Layout Viewer" />
+    <meta name="twitter:description" content="Explore GDS chip layouts locally in your browser or editor, with 2D and 3D visualization." />
+    <meta name="twitter:image" content="https://outblade.github.io/gds-inspector/social-preview.png" />
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"SoftwareApplication","name":"GDS Inspector","url":"https://outblade.github.io/gds-inspector/","description":"Free GDSII layout viewer for ASIC and nanofabrication workflows with 2D and 3D visualization and local file processing.","applicationCategory":"DeveloperApplication","operatingSystem":"Web browser, Windows, macOS, Linux","softwareRequirements":"JavaScript and WebGL2","license":"https://opensource.org/license/mit","isAccessibleForFree":true,"offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"image":"https://outblade.github.io/gds-inspector/social-preview.png"}
+    </script>
     <meta name="theme-color" content="#0b0d12" />
     <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root"><main>
+      <h1>GDS Inspector — Free GDSII Layout Viewer</h1>
+      <p>Explore GDS chip layouts in 2D and 3D with hierarchy, KLayout layers, measurements and density analysis. Local files are processed on your machine.</p>
+      <p>Built for ASIC, VLSI and electron-beam lithography workflows, with SKY130, GF180MCU and IHP SG13G2 layer presets.</p>
+      <a href="./guide.html">Features, supported formats and editor installation</a>
+    </main></div>
     <noscript>GDS Inspector needs JavaScript and WebGL.</noscript>
     <script type="module" src="./src/main.tsx"></script>
   </body>

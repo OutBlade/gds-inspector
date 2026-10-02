@@ -1,4 +1,5 @@
 import { EXAMPLES, openExample } from "../demo";
+import { embedded } from "../host";
 import { IconCube, IconLayers, IconOpen, IconRuler, IconSearch } from "./icons";
 
 export function Landing() {
@@ -10,6 +11,7 @@ export function Landing() {
           2D and 3D views of chip and nanofabrication layouts with layer, density, feature size and rule checks. Nothing is uploaded: the file is read
           in this tab.
         </p>
+        {!embedded && <p><a href="./guide.html">Viewer guide and VS Code / Cursor installation</a></p>}
         <button class="drop-target" onClick={() => document.getElementById("file-input")?.click()}>
           <IconOpen size={28} />
           <span class="dt-title">Drop a .gds file here or click to open</span>

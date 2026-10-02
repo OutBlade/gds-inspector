@@ -28,7 +28,9 @@ if (window.innerWidth < 900) {
   S.rightOpen.value = false;
 }
 
-render(<App />, document.getElementById("root")!);
+const mount = document.getElementById("root")!;
+mount.replaceChildren();
+render(<App />, mount);
 attachShortcuts();
 
 if (embedded) {

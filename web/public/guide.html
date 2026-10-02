@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GDSII Viewer for VS Code and Cursor | GDS Inspector Guide</title>
+<meta name="description" content="Open GDS/GDSII chip layouts in a free browser viewer or VS Code and Cursor extension. Explore 2D/3D views, KLayout layers, supported formats and installation.">
+<link rel="canonical" href="https://outblade.github.io/gds-inspector/guide.html">
+<link rel="icon" href="./favicon.svg">
+<style>body{margin:0;background:#0b0d12;color:#e7e9ef;font:17px/1.7 system-ui,sans-serif}main{max-width:960px;margin:auto;padding:48px 24px}a{color:#aab4ff}h1,h2{line-height:1.2}h1{font-size:clamp(32px,5vw,52px)}h2{margin-top:44px}img{width:100%;height:auto;border-radius:12px}code{background:#171b25;padding:3px 6px}nav{display:flex;gap:24px;flex-wrap:wrap}.button{display:inline-block;background:#6272ef;color:white;padding:12px 22px;border-radius:8px;text-decoration:none}</style>
+</head><body><main>
+<nav><a href="./">Open viewer</a><a href="https://github.com/OutBlade/gds-inspector">Source code</a><a href="https://github.com/OutBlade/gds-inspector/releases?q=vscode">Download extension</a></nav>
+<h1>A free GDSII viewer for chip layouts</h1>
+<p>GDS Inspector lets you explore GDS/GDSII layouts in your browser, VS Code or Cursor. Inspect chip geometry, navigate cell hierarchy and visualize a process stack in 3D. It is open source under the MIT license.</p>
+<p><a class="button" href="./">Open GDS Inspector</a></p>
+<img src="./social-preview.png" alt="GDS Inspector 2D chip layout viewer with colored layers and a shape inspector" loading="lazy">
+<h2>Inspect ASIC and nanofabrication layouts</h2>
+<ul><li>2D layers, labels, hierarchy and shape inspection.</li><li>3D layer stack with adjustable heights, exploded view and section cuts.</li><li>Snapping ruler, cross-sections, layer statistics and pattern density maps.</li><li>SKY130, GF180MCU and IHP SG13G2 layer presets, plus KLayout .lyp layer colors.</li><li>PNG and SVG exports, JSON reports and CSV layer tables.</li></ul>
+<h2>Open a GDS file in the browser</h2>
+<p>Open the viewer and select or drop a layout file. JavaScript and WebGL2 are required. Local files are processed inside the browser without uploading the layout to a server. Remote URL examples require network access to retrieve that file.</p>
+<h2>GDS viewer extension for VS Code and Cursor</h2>
+<p>Download <code>gds-inspector-*.vsix</code> from the <a href="https://github.com/OutBlade/gds-inspector/releases?q=vscode">extension releases</a>. Open your editor's Extensions panel, choose the <strong>…</strong> menu and <strong>Install from VSIX</strong>. Then click a GDS file or run <strong>GDS Inspector: Open Layout</strong>.</p>
+<p>The extension ID is <code>OutBlade.gds-inspector</code>. Once published, search for GDS Inspector in VS Code's Microsoft Marketplace or your editor's Open VSX search. Cursor reviews Open VSX packages through its own marketplace proxy, so appearance in Cursor search can differ from registry publication. The VSIX also works with Windsurf and VSCodium.</p>
+<h2>Supported formats and layer maps</h2>
+<p>The editor opens <code>.gds</code>, <code>.gds2</code>, <code>.gdsii</code>, <code>.gdsx</code> and <code>.gds.gz</code> files. OASIS files are not supported. Put a KLayout <code>.lyp</code> file beside your layout or configure <code>gdsInspector.layerProperties</code>.</p>
+<h2>Can this replace sign-off verification?</h2>
+<p>GDS Inspector is a read-only viewer and inspection tool. Feature-size and rule checks help explore a layout; foundry sign-off DRC and LVS require the appropriate process tools and rule decks.</p>
+<p><a href="https://github.com/OutBlade/gds-inspector/issues">Report an issue</a> · <a href="./">Launch the GDSII viewer</a></p>
+</main></body></html>

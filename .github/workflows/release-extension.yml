@@ -1,6 +1,7 @@
 name: Release extension
 
 on:
+  workflow_dispatch:
   push:
     tags:
       - "vscode-v*"
@@ -41,15 +42,33 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          VERSION="${GITHUB_REF_NAME#vscode-v}"
-          gh release create "$GITHUB_REF_NAME" vscode/*.vsix \
+          VERSION=$(node -p "require('./vscode/package.json').version")
+          TAG="vscode-v$VERSION"
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            gh release upload "$TAG" vscode/*.vsix --clobber
+          else
+          gh release create "$TAG" vscode/*.vsix --target "$GITHUB_SHA" \
             --title "GDS Inspector for VS Code $VERSION" \
             --notes "Install in VS Code, Cursor, Windsurf or VSCodium: Extensions view, ... menu, Install from VSIX, then pick the attached file."
+          fi
+
+      - name: Report missing publishing credentials
+        run: |
+          if [ -z "$VSCE_PAT" ]; then echo "::warning::VSCE_PAT is missing; Microsoft Marketplace publication is pending."; fi
+          if [ -z "$OVSX_PAT" ]; then echo "::warning::OVSX_PAT is missing; Open VSX publication is pending."; fi
 
       - name: Publish to the VS Code Marketplace
         if: env.VSCE_PAT != ''
+        id: marketplace
+        continue-on-error: true
         run: npx vsce publish --no-dependencies --packagePath *.vsix --pat "$VSCE_PAT"
 
-      - name: Publish to Open VSX (Cursor, Windsurf, VSCodium)
+      - name: Publish to Open VSX
         if: env.OVSX_PAT != ''
+        id: openvsx
+        continue-on-error: true
         run: npx ovsx publish *.vsix --pat "$OVSX_PAT"
+
+      - name: Check publication results
+        if: steps.marketplace.outcome == 'failure' || steps.openvsx.outcome == 'failure'
+        run: exit 1

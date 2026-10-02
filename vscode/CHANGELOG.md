@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.1
+
+- Improve extension search metadata and installation instructions.
+- Add browser search/share metadata and a readable viewer guide.
+
 ## 0.1.0
 
 First release.

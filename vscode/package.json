@@ -1,8 +1,8 @@
 {
   "name": "gds-inspector",
-  "displayName": "GDS Inspector",
-  "description": "Open GDSII chip and nanofabrication layouts in the editor: 2D and 3D views, layer statistics, density maps, feature sizes and rule checks.",
-  "version": "0.1.0",
+  "displayName": "GDS Inspector - GDSII Layout Viewer",
+  "description": "View GDS/GDSII chip layouts in VS Code: 2D/3D visualization, hierarchy, KLayout layers, measurements and density analysis for ASIC and EBL workflows.",
+  "version": "0.1.1",
   "publisher": "OutBlade",
   "license": "MIT",
   "icon": "icon.png",
@@ -22,11 +22,11 @@
   "keywords": [
     "gds",
     "gdsii",
-    "layout",
+    "gds viewer",
+    "chip layout",
     "klayout",
     "vlsi",
     "asic",
-    "tiny tapeout",
     "sky130",
     "ebl",
     "lithography"
@@ -45,12 +45,24 @@
         "viewType": "gdsInspector.layout",
         "displayName": "GDS Inspector",
         "selector": [
-          { "filenamePattern": "*.gds" },
-          { "filenamePattern": "*.GDS" },
-          { "filenamePattern": "*.gds2" },
-          { "filenamePattern": "*.gdsii" },
-          { "filenamePattern": "*.gdsx" },
-          { "filenamePattern": "*.gds.gz" }
+          {
+            "filenamePattern": "*.gds"
+          },
+          {
+            "filenamePattern": "*.GDS"
+          },
+          {
+            "filenamePattern": "*.gds2"
+          },
+          {
+            "filenamePattern": "*.gdsii"
+          },
+          {
+            "filenamePattern": "*.gdsx"
+          },
+          {
+            "filenamePattern": "*.gds.gz"
+          }
         ],
         "priority": "default"
       }

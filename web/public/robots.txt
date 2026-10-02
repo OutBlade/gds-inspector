@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://outblade.github.io/gds-inspector/sitemap.xml

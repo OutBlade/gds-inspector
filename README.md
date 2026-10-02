@@ -9,7 +9,7 @@
 [![Platform](https://img.shields.io/badge/platform-Windows-blue?style=flat-square)](https://github.com/OutBlade/gds-inspector/releases/latest)
 [![License](https://img.shields.io/badge/license-MIT-green?style=flat-square)](LICENSE)
 
-Professional GDSII layout analysis tool for nanofabrication engineers. Built for daily EBL workflows: inspect layer structure, calculate pattern density, analyze critical dimensions, and run design rule checks — all in a fast, offline desktop app.
+Free, open-source GDS/GDSII layout viewer and analysis tool for ASIC, VLSI and nanofabrication workflows. Explore chip layouts in 2D and 3D in the browser, in VS Code or Cursor, or in the Windows desktop app. Inspect layers, measure features and analyze pattern density with local file processing.
 
 ---
 
@@ -65,7 +65,7 @@ code --install-extension gds-inspector-0.1.0.vsix
 
 Develop: `cd vscode && npm install && npm test` builds the web app into the extension and runs the integration tests in a downloaded VS Code.
 
-Store publishing is automated: pushing a tag `vscode-v<version>` builds, tests and attaches the `.vsix` to a GitHub release, and also publishes to the VS Code Marketplace and to Open VSX (used by Cursor, Windsurf and VSCodium) once the repository secrets `VSCE_PAT` and `OVSX_PAT` exist.
+Store publishing is automated: pushing a tag `vscode-v<version>` builds, tests and attaches the `.vsix` to a GitHub release, and also publishes to the VS Code Marketplace and to Open VSX (used by VS Code-family editors; Cursor applies its own marketplace review) once the repository secrets `VSCE_PAT` and `OVSX_PAT` exist.
 
 ---
 

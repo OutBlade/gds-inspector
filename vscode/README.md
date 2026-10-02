@@ -1,4 +1,4 @@
-# GDS Inspector for VS Code, Cursor and Windsurf
+# GDS Inspector — GDS/GDSII Layout Viewer for VS Code and Cursor
 
 Open GDSII chip and nanofabrication layouts right in the editor. Click a `.gds` file and it opens in a layout view with the whole design hierarchy, a 3D metal stack and the analysis tools of [GDS Inspector](https://github.com/OutBlade/gds-inspector). Everything runs locally; the layout never leaves your machine.
 
@@ -7,6 +7,17 @@ Works in VS Code, Cursor, Windsurf, VSCodium, Trae and other editors built on VS
 ![2D layout view with shape inspector](https://raw.githubusercontent.com/OutBlade/gds-inspector/master/docs/web-2d.png)
 
 ![3D metal stack view](https://raw.githubusercontent.com/OutBlade/gds-inspector/master/docs/web-3d.png)
+
+## Installation
+
+Search for **GDS Inspector** (extension ID `OutBlade.gds-inspector`) once the registry listing is available. VS Code uses the Microsoft Marketplace; Cursor uses Open VSX through its own marketplace review. Availability can differ between editors.
+
+Install immediately from the [GitHub extension releases](https://github.com/OutBlade/gds-inspector/releases?q=vscode): download the `.vsix`, open Extensions → **…** → **Install from VSIX**, then select the file. This also works in Windsurf and VSCodium.
+
+```sh
+code --install-extension gds-inspector-0.1.1.vsix
+# Cursor: cursor --install-extension gds-inspector-0.1.1.vsix
+```
 
 ## Features
 
@@ -39,3 +50,9 @@ Keyboard in the layout view: `T` switches 2D and 3D, `F` fits, `R` ruler, `X` cr
 ## Also in the browser
 
 The same viewer runs at [outblade.github.io/gds-inspector](https://outblade.github.io/gds-inspector/), no install needed.
+
+## Scope and privacy
+
+The extension is a read-only GDSII viewer. Layouts are processed locally in the editor webview. WebGL2 is required. Inspection rule checks do not replace foundry sign-off DRC or LVS. OASIS is not supported.
+
+[Report an issue](https://github.com/OutBlade/gds-inspector/issues) · [MIT license and source](https://github.com/OutBlade/gds-inspector)
